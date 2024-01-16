@@ -1,8 +1,8 @@
 'use client';
 
-// Import React, useState, and useEffect
 import React, { useState, useEffect } from 'react';
 import { useWindowWidth } from '@react-hook/window-size';
+import { motion, AnimatePresence } from 'framer-motion';
 
 import {
     LayoutDashboard,
@@ -10,12 +10,12 @@ import {
     File,
     Settings2,
     ChevronRight,
+    ChevronLeft,
 } from 'lucide-react';
 import { Nav } from '@/components/ui/nav';
 import { Button } from '@/components/ui/button';
 import Image from 'next/image';
 
-// Import your logo image
 import Logo from '@/public/755.jpg';
 
 export default function SideNavbar() {
@@ -23,20 +23,18 @@ export default function SideNavbar() {
     const onlyWidth = useWindowWidth();
     const mobileWidth = onlyWidth < 768;
 
-    // Function to toggle the sidebar
     const toggleSidebar = () => {
         setIsCollapsed(!isCollapsed);
     };
 
-    // Use useEffect to update the state only on the client side
     useEffect(() => {
         setIsCollapsed(mobileWidth);
     }, [mobileWidth]);
 
     return (
-        <div className="relative min-w-[80px] border-r px-3 pt-6">
-
+        <div className={`relative min-w-${isCollapsed ? '16' : '120'} border-r px-3 pt-6 transition-all duration-300`}>
             <Image
+                priority
                 width={60}
                 height={60}
                 src={Logo}
@@ -49,8 +47,29 @@ export default function SideNavbar() {
                 <Button
                     className="rounded-full p-2"
                     variant="secondary"
-                    onClick={toggleSidebar}>
-                    <ChevronRight className="w-6 h-6"/>
+                    onClick={toggleSidebar}
+                >
+                    <AnimatePresence>
+                        {isCollapsed ? (
+                            <motion.div
+                                key="chevron-left"
+                                initial={{ opacity: 0, x: 20 }}
+                                animate={{ opacity: 1, x: 0 }}
+                                exit={{ opacity: 0, x: -20 }}
+                            >
+                                <ChevronLeft className="w-6 h-6" />
+                            </motion.div>
+                        ) : (
+                            <motion.div
+                                key="chevron-right"
+                                initial={{ opacity: 0, x: -20 }}
+                                animate={{ opacity: 1, x: 0 }}
+                                exit={{ opacity: 0, x: 20 }}
+                            >
+                                <ChevronRight className="w-6 h-6" />
+                            </motion.div>
+                        )}
+                    </AnimatePresence>
                 </Button>
             </div>
 

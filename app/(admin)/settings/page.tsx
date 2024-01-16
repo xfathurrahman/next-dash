@@ -4,7 +4,6 @@ import { DataTable } from "@/components/dataTable";
 import { ColumnDef } from "@tanstack/react-table";
 import React from "react";
 import PageTitle from "@/components/pageTitle";
-import { cn } from "@/lib/utils";
 
 type Props = {};
 

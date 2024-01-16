@@ -7,10 +7,10 @@ import { motion, AnimatePresence } from 'framer-motion';
 import {
     LayoutDashboard,
     Users2,
-    File,
     Settings2,
     ChevronRight,
     ChevronLeft,
+    ShoppingCart,
 } from 'lucide-react';
 import { Nav } from '@/components/ui/nav';
 import { Button } from '@/components/ui/button';
@@ -86,10 +86,10 @@ export default function SideNavbar() {
                         variant: 'default',
                     },
                     {
-                        title: 'Posts',
-                        href: '/posts',
+                        title: 'Orders',
+                        href: '/orders',
                         label: '',
-                        icon: File,
+                        icon: ShoppingCart,
                         variant: 'ghost',
                     },
                     {
